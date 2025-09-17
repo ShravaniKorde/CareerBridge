@@ -1,6 +1,9 @@
 package com.example.CareerBridge.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -9,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.CareerBridge.model.Job;
+import com.example.CareerBridge.model.JobRequestDTO;
+import com.example.CareerBridge.model.JobResponseDTO;
 import com.example.CareerBridge.service.JobService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,19 +25,27 @@ public class RecruiterController {
 
     private final JobService jobService;
 
-    @PostMapping("/job")
-    public Job postJob(@RequestBody Job job) {
-        return jobService.addJob(job);
+     @GetMapping("/getAllJobs")
+    public List<JobResponseDTO> getAllJobs() {
+        return jobService.getAllJobs();
     }
 
-    // Update job by id
-    @PutMapping("/job/{id}")
-    public Job updateJob(@PathVariable String id, @RequestBody Job job) {
-        return jobService.updateJobById(id, job);
+    @GetMapping("/jobById/{id}")
+    public JobResponseDTO getJobById(@PathVariable String id) {
+        return jobService.getJobById(id);
     }
 
-    // Delete job by id
-    @DeleteMapping("/job/{id}")
+    @PostMapping("/postJob")
+    public JobResponseDTO postJob(@RequestBody JobRequestDTO jobDto) {
+        return jobService.addJob(jobDto);
+    }
+
+    @PutMapping("/updateJobById/{id}")
+    public JobResponseDTO updateJob(@PathVariable String id, @RequestBody JobRequestDTO jobDto) {
+        return jobService.updateJobById(id, jobDto);
+    }
+
+    @DeleteMapping("/deleteJobById/{id}")
     public String deleteJob(@PathVariable String id) {
         jobService.deleteJobById(id);
         return "Job with id " + id + " deleted successfully";
