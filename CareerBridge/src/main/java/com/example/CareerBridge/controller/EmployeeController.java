@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.CareerBridge.model.Job;
+import com.example.CareerBridge.model.JobResponseDTO;
 import com.example.CareerBridge.service.JobService;
 
 import lombok.RequiredArgsConstructor;
@@ -18,32 +19,24 @@ import lombok.RequiredArgsConstructor;
 public class EmployeeController {
     private final JobService jobService;
 
-    @GetMapping("/jobs")
-    public List<Job> getAllJobs() {
-
+    @GetMapping("/getAllJobs")
+    public List<JobResponseDTO> getAllJobs() {
         return jobService.getAllJobs();
-
     }
 
     @GetMapping("/jobs/profile/{profile}")
-    public List<Job> getByProfile(@PathVariable String profile) {
-
+    public List<JobResponseDTO> getByProfile(@PathVariable String profile) {
         return jobService.searchByProfile(profile);
-
     }
 
     @GetMapping("/jobs/tech/{tech}")
-    public List<Job> getByTech(@PathVariable String tech) {
-
+    public List<JobResponseDTO> getByTech(@PathVariable String tech) {
         return jobService.searchByTech(tech);
-
     }
 
     @GetMapping("/jobs/exp/{exp}")
-    public List<Job> getByExperience(@PathVariable int exp) {
-
+    public List<JobResponseDTO> getByExperience(@PathVariable int exp) {
         return jobService.searchByExperience(exp);
-        
     }
 }
 

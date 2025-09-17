@@ -13,7 +13,7 @@ public class SwaggerConfig {
     public OpenAPI jobPortalAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Job Portal API")
+                        .title("CareerBridge API")
                         .description("CareerBridge Platform")
                         .version("1.0.0"));
     }
